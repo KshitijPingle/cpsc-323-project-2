@@ -3,8 +3,7 @@ from data import *
 
 
 def main():
-    input = get_tokens("./test_cases/1.in")
-
+    input = get_tokens("./test_cases/10.in")
 
     if not input:
         return
@@ -24,6 +23,10 @@ def main():
 
         action = table[current_state][table_column.index(current_token)]
         print(f"Action: {action}")
+
+        if action == None:
+            print("Parsing error. Invalid syntax.")
+            return
 
         if action.startswith('S'):
             state_to_shift = int(action[1:])
@@ -56,9 +59,6 @@ def main():
             print("Parsing succesful. Accepting input.")
             break
 
-        else:
-            print("Parsing error. Invalid syntax.")
-            break
-    
+
 if __name__ == "__main__":
     main()
