@@ -59,7 +59,8 @@ def main():
             print("Parsing succesful. Accepting input.")
             break
 
-    # Outside of While loop (This is where we output CST)
+    # If the parsing failed, produce an error accordingly.
+    # If success, output a CST tree.
 
 
 if __name__ == "__main__":
