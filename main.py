@@ -1,5 +1,6 @@
 from get_tokens import *
 from data import *
+from tree import *
 
 
 def main():
@@ -12,6 +13,7 @@ def main():
     print(input)
 
     stack = [0]
+    cst_stack = []
     input_index = 0
 
     print(f"Beginning Stack: {stack}")
@@ -24,25 +26,27 @@ def main():
         action = table[current_state][table_column.index(current_token)]
         print(f"Action: {action}")
 
-        if action == None:
+        if action is None:
             print("----------ERROR----------")
-            print(f"Unexpected token '{current_token}' at index {input_index} of {input}\n")
+            print(
+                f"Unexpected token '{current_token}' at index {input_index} of {input}\n")
             print(f"Current Stack: {stack}\n")
             print(f"Remaining Input: {input[input_index:]}")
             print("-------------------------")
-
-            # Terminate the program entirely
             return
 
         if action.startswith('S'):
             state_to_shift = int(action[1:])
             stack.append(current_token)
             stack.append(state_to_shift)
+
+            # Add CST leaf node
+            cst_stack.append(tree_node(current_token))
+
             input_index += 1
             print(f"Shifted Stack: {stack}")
 
         elif action.startswith('R'):
-            # Reduce operation
             production_index = int(action[1:])
             lhs, rhs = productions[production_index]
             print(
@@ -52,20 +56,29 @@ def main():
             for _ in range(len(rhs) * 2):
                 stack.pop()
 
-            # Get the new current state
+            # Get new current state
             new_state = stack[-1]
-
-            # Find the goto state
             goto_state = table[new_state][table_column.index(lhs)]
             stack.append(lhs)
             stack.append(int(goto_state))
             print(f"Reduced Stack: {stack}")
 
-        elif action == "Acc":
-            print("Parsing succesful. Accepting input.")
-            break
+            # Create CST node
+            num_children = len(rhs)
+            children = cst_stack[-num_children:]
+            del cst_stack[-num_children:]
+            new_node = tree_node(lhs)
+            new_node.children.extend(children)
+            cst_stack.append(new_node)
 
-    # Output a CST tree.
+        elif action == "Acc":
+            print("Parsing successful. Accepting input.\n")
+            print("Concrete Syntax Tree:")
+            if cst_stack:
+                cst_stack[0].print_tree()
+            else:
+                print("[Empty CST]")
+            break
 
 
 if __name__ == "__main__":
