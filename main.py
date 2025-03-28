@@ -3,7 +3,7 @@ from data import *
 
 
 def main():
-    input = get_tokens("./test_cases/8.in")
+    input = get_tokens("./test_cases/6.in")
 
     if not input:
         return
@@ -30,6 +30,8 @@ def main():
             print(f"Current Stack: {stack}\n")
             print(f"Remaining Input: {input[input_index:]}")
             print("-------------------------")
+
+            # Terminate the program entirely
             return
 
         if action.startswith('S'):
