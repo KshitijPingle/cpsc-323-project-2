@@ -26,7 +26,7 @@ def main():
 
         if action == None:
             print("Parsing error. Invalid syntax.")
-            return
+            break
 
         if action.startswith('S'):
             state_to_shift = int(action[1:])
