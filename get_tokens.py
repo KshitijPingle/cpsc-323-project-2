@@ -18,6 +18,6 @@ def get_tokens(filename):
 
             return tokens
     except:
-        print("ERROR. File couldn't be found. Please make sure the directory is correct.")
+        print("\nERROR. File couldn't be found. Please make sure the directory is correct.")
         print('EXAMPLE: input = get_tokens("./test_cases/1.in")')
-        print('EXAMPLE: input = get_tokens("./test_cases/10.in)')
+        print('EXAMPLE: input = get_tokens("./test_cases/10.in)\n')

@@ -3,7 +3,7 @@ from data import *
 
 
 def main():
-    input = get_tokens("./test_cases/10.in")
+    input = get_tokens("./test_cases/8.in")
 
     if not input:
         return
@@ -25,8 +25,11 @@ def main():
         print(f"Action: {action}")
 
         if action == None:
-            # We can just terminate the entire program here after producing an error accordingly.
-            print("Parsing error. Invalid syntax.")
+            print("----------ERROR----------")
+            print(f"Unexpected token '{current_token}' at index {input_index} of {input}\n")
+            print(f"Current Stack: {stack}\n")
+            print(f"Remaining Input: {input[input_index:]}")
+            print("-------------------------")
             return
 
         if action.startswith('S'):
