@@ -1,61 +1,64 @@
 from get_tokens import *
-from  data import *
+from data import *
+
 
 def main():
-  input = get_tokens("./test_cases/1.in")
+    input = get_tokens("./test_cases/1.in")
 
-if not input:
-  return 
 
-input.append("$")
-print(input)
+    if not input:
+        return
 
-stack = [0]
-input_index = 0
+    input.append("$")
+    print(input)
 
-print(f"Beginning Stack: {stack}")
+    stack = [0]
+    input_index = 0
 
-while True:
-  current_state = stack[-1]
-  current_token = input[input_index]
-  print(f"Current token: {current_token}")
+    print(f"Beginning Stack: {stack}")
 
-  action = table[current_state][table_column.index(current_token)]
-  print(f"Action: {action}")
+    while True:
+        current_state = stack[-1]
+        current_token = input[input_index]
+        print(f"Current token: {current_token}")
 
-  if action.startswith('S'):
-    state_to_shift = int(action[1:])
-    stack.append(current_token)
-    stack.append(state_to_shift)
-    input_index += 1
-    print(f"Shifted Stack: {stack}")
+        action = table[current_state][table_column.index(current_token)]
+        print(f"Action: {action}")
 
-  elif action.startswith('R'):
-    # Reduce operation
-    production_index = int(action[1:])
-    lhs, rhs = productions[production_index]
-    print(f"Reducing using rule {production_index}: {lhs} -> {' '.join(rhs)}")
+        if action.startswith('S'):
+            state_to_shift = int(action[1:])
+            stack.append(current_token)
+            stack.append(state_to_shift)
+            input_index += 1
+            print(f"Shifted Stack: {stack}")
 
-    # Pop twice for each symbol in RHS (symbol + state)
-    for _ in range(len(rhs) * 2):
-      stack.pop()
+        elif action.startswith('R'):
+            # Reduce operation
+            production_index = int(action[1:])
+            lhs, rhs = productions[production_index]
+            print(
+                f"Reducing using rule {production_index}: {lhs} -> {' '.join(rhs)}")
 
-    # Get the new current state
-    new_state = stack[-1]
+            # Pop twice for each symbol in RHS (symbol + state)
+            for _ in range(len(rhs) * 2):
+                stack.pop()
 
-    # Find the goto state
-    goto_state = table[new_state][table_column.index(lhs)]
-    stack.append(lhs)
-    stack.append(int(goto_state))
-    print(f"Reduced Stack: {stack}")
+            # Get the new current state
+            new_state = stack[-1]
 
-  elif action == "Acc":
-    print("Parsing succesful. Accepting input.")
-    break
+            # Find the goto state
+            goto_state = table[new_state][table_column.index(lhs)]
+            stack.append(lhs)
+            stack.append(int(goto_state))
+            print(f"Reduced Stack: {stack}")
 
-  else:
-    print("Parsing error. Invalid syntax.")
-    break
+        elif action == "Acc":
+            print("Parsing succesful. Accepting input.")
+            break
 
-_name_ == "__main__":
-main()
+        else:
+            print("Parsing error. Invalid syntax.")
+            break
+    
+if __name__ == "__main__":
+    main()
