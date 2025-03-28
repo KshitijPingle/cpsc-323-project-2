@@ -25,8 +25,9 @@ def main():
         print(f"Action: {action}")
 
         if action == None:
+            # We can just terminate the entire program here after producing an error accordingly.
             print("Parsing error. Invalid syntax.")
-            break
+            return
 
         if action.startswith('S'):
             state_to_shift = int(action[1:])
@@ -59,8 +60,7 @@ def main():
             print("Parsing succesful. Accepting input.")
             break
 
-    # If the parsing failed, produce an error accordingly.
-    # If success, output a CST tree.
+    # Output a CST tree.
 
 
 if __name__ == "__main__":
