@@ -59,6 +59,8 @@ def main():
             print("Parsing succesful. Accepting input.")
             break
 
+    # Outside of While loop (This is where we output CST)
+
 
 if __name__ == "__main__":
     main()
