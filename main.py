@@ -12,7 +12,7 @@ def debug_print(message):
 
 
 def main():
-    input = get_tokens("./test_cases/1.in")
+    input = get_tokens("./test_cases/6.in")
 
     if not input:
         return
@@ -75,8 +75,11 @@ def main():
             num_children = len(rhs)
             children = cst_stack[-num_children:]
             del cst_stack[-num_children:]
+
             new_node = tree_node(lhs)
-            new_node.children.extend(children)
+            for child in children:
+                new_node.add_child(child)
+
             cst_stack.append(new_node)
 
         elif action == "Acc":
