@@ -17,7 +17,7 @@ def get_tokens(filename):
                     current_token = ""
 
             return tokens
-    except:
-        print("\nERROR. File couldn't be found. Please make sure the directory is correct.")
-        print('EXAMPLE: input = get_tokens("./test_cases/1.in")')
-        print('EXAMPLE: input = get_tokens("./test_cases/10.in)\n')
+    except Exception as e:
+        print(f"Error type: {e}")
+        print("\nPlease check if the spelling is correct.")
+        print('\nEXAMPLE: input = get_tokens("./test_cases/10.in)')
