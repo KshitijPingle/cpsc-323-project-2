@@ -12,7 +12,7 @@ def debug_print(message):
 
 
 def main():
-    input = get_tokens("./test_cases/6.in")
+    input = get_tokens("./test_cases/1.in")
 
     if not input:
         return
