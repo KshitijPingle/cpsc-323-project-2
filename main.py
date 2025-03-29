@@ -85,7 +85,7 @@ def main():
             if cst_stack:
                 cst_stack[0].print_tree()
             else:
-                print("[Empty CST]")
+                print("CST is empty.")
             break
 
 
